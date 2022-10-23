@@ -2,8 +2,12 @@ import collections
 
 cache_size = 16
 
+# Cache needs to delete (flush), search and write data
+# A deque collection is used in this case to store data
+# Cache addresses from 0 to 15
+
 class Cache:
-    def __init(self):
+    def __init__(self):
         self.cache = collections.deque(maxlen = cache_size)
         self.flush_cache()
 
