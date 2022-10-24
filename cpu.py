@@ -49,16 +49,20 @@ class CPU:
 
     # Instructions implementations
 
-    def jump_instruction(self, target):
-        self.cpu_counter = int(target)
-
     def add_instruction(self, destination, source, target):
         self.registers[int(destination[1:])] = self.registers[int(source[1:])] + \
+        self.registers[int(target[1:])]
+
+    def sub_instruction(self, destination, source, target):
+        self.registers[int(destination[1:])] = self.registers[int(source[1:])] - \
         self.registers[int(target[1:])]
 
     def add_i_instruction(self, destination, source, immediate):
         self.registers[int(destination[1:])] = self.registers[int(source[1:])] + \
             int(immediate)
+
+    def jump_instruction(self, target):
+        self.cpu_counter = int(target)
 
     def cache_instruction(self, value):
         if value == 0:
@@ -73,6 +77,8 @@ class CPU:
         self.increment_cpu_counter()
         if instruction_parsed[0] == 'ADD':
             self.add_instruction(instruction_parsed[1], instruction_parsed[2], instruction_parsed[3])
+        if instruction_parsed[0] == 'SUB':
+            self.sub_instruction(instruction_parsed[1], instruction_parsed[2], instruction_parsed[3])
         if instruction_parsed[0] == 'ADDI':
             self.add_i_instruction(instruction_parsed[1], instruction_parsed[2], instruction_parsed[3])
         if instruction_parsed[0] == 'J':
